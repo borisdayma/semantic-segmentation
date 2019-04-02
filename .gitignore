@@ -1,0 +1,10 @@
+# Project data files
+data/
+
+# Wandb files
+
+# IDE
+.vscode/
+
+# Jupyter notebook
+.ipynb_checkpoints/
