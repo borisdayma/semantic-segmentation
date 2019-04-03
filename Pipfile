@@ -9,7 +9,7 @@ verify_ssl = true
 torch = "*"
 torchvision = "*"
 fastai = "*"
-ipykernel = "*"
+jupyter = "*"
 
 [requires]
 python_version = "3.7"
