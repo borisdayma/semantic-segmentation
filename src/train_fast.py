@@ -44,7 +44,7 @@ class WandBLogger(LearnerCallback):
         super().__init__(learn)
         
     def on_epoch_end(self, epoch: int, smooth_loss: Tensor, last_metrics: MetricsList, **kwargs: Any) -> bool:
-        "Add a line with `epoch` number, `smooth_loss` and `last_metrics`."
+        "Logs training loss, validation loss and custom metrics"
         vals = {name:stat for name, stat in list(zip(self.learn.recorder.names, [epoch, smooth_loss] + last_metrics))[1:]}
         wandb.log(vals)
 
