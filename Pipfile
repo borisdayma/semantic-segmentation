@@ -10,6 +10,7 @@ torch = "*"
 torchvision = "*"
 fastai = "*"
 jupyter = "*"
+wandb = "*"
 
 [requires]
 python_version = "3.7"
