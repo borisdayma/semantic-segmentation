@@ -18,7 +18,7 @@ config.encoder = encoder.__name__
 config.pretrained = True            # whether we use a frozen pre-trained encoder
 config.weight_decay = 1e-4          # weight decay applied on layers
 config.bn_weight_decay = False      # whether weight decay is applied on batch norm layers
-config.one_cycle = False            # use the "1cycle" policy -> https://arxiv.org/abs/1803.09820
+config.one_cycle = True             # use the "1cycle" policy -> https://arxiv.org/abs/1803.09820
 config.learning_rate = 3e-3         # learning rate
 
 # Data paths
@@ -78,3 +78,6 @@ if config.one_cycle:
     learn.fit_one_cycle(config.epochs, max_lr = slice(config.learning_rate))
 else:
     learn.fit(config.epochs, lr = slice(config.learning_rate))
+
+# Save model
+learn.save("trained_model")
