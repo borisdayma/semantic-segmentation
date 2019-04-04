@@ -1,5 +1,6 @@
 # Pre-process BDD dataset: https://deepdrive.berkeley.edu/
 # Segmentation mask code for "Void" updated from 255 to 19 for continuous sequence
+# This script must only be run once on downloaded dataset
 
 from pathlib import Path
 from tqdm import tqdm
