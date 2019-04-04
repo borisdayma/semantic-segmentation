@@ -20,6 +20,7 @@ config.weight_decay = 1e-4          # weight decay applied on layers
 config.bn_weight_decay = False      # whether weight decay is applied on batch norm layers
 config.one_cycle = True             # use the "1cycle" policy -> https://arxiv.org/abs/1803.09820
 config.learning_rate = 3e-3         # learning rate
+save_model = False                  # models are large and long to upload
 
 # Data paths
 path_data = Path('../data/bdd100k/seg')
@@ -80,4 +81,5 @@ else:
     learn.fit(config.epochs, lr = slice(config.learning_rate))
 
 # Save model
-learn.save("trained_model")
+if save_model:
+    learn.save("trained_model")
