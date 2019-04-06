@@ -3,6 +3,7 @@ from pathlib import Path
 from fastai.vision import *
 import wandb
 from wandb_fastai import WandBCallback
+from functools import partialmethod
 
 # Initialize W&B project
 wandb.init(project="semantic-segmentation")
@@ -20,6 +21,7 @@ config.weight_decay = 1e-5      # weight decay applied on layers
 config.bn_weight_decay = False  # whether weight decay is applied on batch norm layers
 config.one_cycle = True         # use the "1cycle" policy -> https://arxiv.org/abs/1803.09820
 config.learning_rate = 5e-3     # learning rate
+save_model = False
 
 # Data paths
 path_data = Path('../data/bdd100k/seg')
@@ -62,7 +64,8 @@ learn = unet_learner(
     metrics=acc,
     wd=config.weight_decay,
     bn_wd=config.bn_weight_decay,
-    callback_fns=[WandBCallback])
+    callback_fns=partial(WandBCallback, save_model=save_model, monitor='acc'),
+    path=wandb.run.dir)  # Required when save_model=True
 
 # Train
 if config.one_cycle:
