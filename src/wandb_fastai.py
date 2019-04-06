@@ -15,7 +15,7 @@ class WandBCallback(LearnerCallback):
         """WandB fast.ai Callback
 
         Automatically saves model topology, losses & metrics.
-        Optionally logs weights, gradients, sample image predictions and best trained model.
+        Optionally logs weights, gradients, sample predictions and best trained model.
 
         Args:
             learn (fastai.basic_train.Learner): the fast.ai learner to hook.
