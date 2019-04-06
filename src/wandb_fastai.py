@@ -13,6 +13,7 @@ Basic use:
 -> With custom values
 
     from wandb_fastai import WandBCallback
+    from functools import partialmethod
     [...]
     learn = Learner(data,
                     callback_fns=partial(WandBCallback, ...),
