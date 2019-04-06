@@ -5,22 +5,18 @@ Basic use:
 
 -> With default values
 
-    -> Option 1 : add callback to Learner
     from wandb_fastai import WandBCallback
     [...]
     learn = Learner(data, ..., callback_fns=WandBCallback)
     learn.fit(epochs)
 
-    -> Option 2 : add callback to fit method
-    from wandb_fastai import WandBCallback
-    [...]
-    learn = Learner(data, ...)
-    learn.fit(epochs, callbacks=WandBCallback()) # make sure to instantiate
-
 -> With custom values
+
     from wandb_fastai import WandBCallback
     [...]
-    learn = Learner(data, ...)  # add "path=wandb.run.dir" if saving model
+    learn = Learner(data,
+                    callback_fns=partial(WandBCallback, ...),
+                    ...)  # add "path=wandb.run.dir" if saving model
     learn.fit(epochs, callbacks=WandBCallback(learn, ...)
 '''
 import wandb
@@ -28,7 +24,7 @@ from fastai.basic_train import LearnerCallback
 from fastai.callbacks import SaveModelCallback
 import matplotlib.pyplot as plt
 from pathlib import Path
-from functools import partialmethod
+from functools import partial
 
 
 class WandBCallback(LearnerCallback):
@@ -68,13 +64,8 @@ class WandBCallback(LearnerCallback):
                     'You must initialize learner with "path=wandb.run.dir" to sync model on W&B'
                 )
 
-            # Override default values of constructor
-            # Source: https://stackoverflow.com/a/38911383
-            class newSaveModelCallback(SaveModelCallback):
-                __init__ = partialmethod(
-                    SaveModelCallback.__init__, monitor=monitor, mode=mode)
-
-            self.learn.callback_fns.append(newSaveModelCallback)
+            self.learn.callback_fns.append(
+                partial(SaveModelCallback, monitor=monitor, mode=mode))
 
     def on_train_begin(self, **kwargs):
         "Logs model topology and optionally gradients and weights"
