@@ -67,5 +67,4 @@ class WandBCallback(LearnerCallback):
                     last_metrics))[1:]
         }
 
-        wandb.log({'epoch': epoch}, commit=False)
         wandb.log(logs)
