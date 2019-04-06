@@ -20,7 +20,6 @@ config.weight_decay = 1e-5      # weight decay applied on layers
 config.bn_weight_decay = False  # whether weight decay is applied on batch norm layers
 config.one_cycle = True         # use the "1cycle" policy -> https://arxiv.org/abs/1803.09820
 config.learning_rate = 5e-3     # learning rate
-save_model = False              # save best model
 
 # Data paths
 path_data = Path('../data/bdd100k/seg')
