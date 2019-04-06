@@ -4,10 +4,18 @@ WandB fast.ai Callback
 Basic use:
 
 -> With default values
+
+    -> Option 1 : add callback to Learner
     from wandb_fastai import WandBCallback
     [...]
     learn = Learner(data, ..., callback_fns=WandBCallback)
     learn.fit(epochs)
+
+    -> Option 2 : add callback to fit method
+    from wandb_fastai import WandBCallback
+    [...]
+    learn = Learner(data, ...)
+    learn.fit(epochs, callbacks=WandBCallback()) # make sure to instantiate
 
 -> With custom values
     from wandb_fastai import WandBCallback
