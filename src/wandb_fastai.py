@@ -18,7 +18,7 @@ Basic use:
     learn = Learner(data,
                     callback_fns=partial(WandBCallback, ...),
                     ...)  # add "path=wandb.run.dir" if saving model
-    learn.fit(epochs, callbacks=WandBCallback(learn, ...)
+    learn.fit(epochs)
 '''
 import wandb
 from fastai.basic_train import LearnerCallback
