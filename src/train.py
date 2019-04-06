@@ -11,7 +11,7 @@ wandb.init(project="semantic-segmentation")
 config = wandb.config           # for shortening
 config.framework = "fast.ai"    # AI framework used (for when we create other versions)
 config.img_size = (180, 320)    # dimensions of resized image - can be 1 dim or tuple
-config.batch_size = 8           # Batch size during training
+config.batch_size = 16          # Batch size during training
 config.epochs = 10              # Number of epochs for training
 encoder = models.resnet34       # encoder of unet (contracting path)
 config.encoder = encoder.__name__
@@ -20,7 +20,7 @@ config.weight_decay = 1e-5      # weight decay applied on layers
 config.bn_weight_decay = False  # whether weight decay is applied on batch norm layers
 config.one_cycle = True         # use the "1cycle" policy -> https://arxiv.org/abs/1803.09820
 config.learning_rate = 5e-3     # learning rate
-save_model = False              # models are large and long to upload
+save_model = False               # save best model
 
 # Data paths
 path_data = Path('../data/bdd100k/seg')
@@ -54,20 +54,23 @@ def acc(input, target):
     target = target.squeeze(1)
     mask = target != void_code
     return (input.argmax(dim=1)[mask] == target[mask]).float().mean()
-metrics = acc
 
 # Create NN
 learn = unet_learner(
     data,
     arch=encoder,
     pretrained=config.pretrained,
-    metrics=metrics,
+    metrics=acc,
     wd=config.weight_decay,
     bn_wd=config.bn_weight_decay,
     callback_fns=[WandBCallback])
 
 # Train
 if config.one_cycle:
-    learn.fit_one_cycle(config.epochs, max_lr=slice(config.learning_rate))
+    learn.fit_one_cycle(
+        config.epochs,
+        max_lr=slice(config.learning_rate))
 else:
-    learn.fit(config.epochs, lr=slice(config.learning_rate))
+    learn.fit(
+        config.epochs,
+        lr=slice(config.learning_rate))
