@@ -39,6 +39,9 @@ from functools import partial
 
 
 class WandbCallback(LearnerCallback):
+
+    watch_called = False  # record if wandb.watch has been called
+
     def __init__(self,
                  learn,
                  log="all",
@@ -67,7 +70,9 @@ class WandbCallback(LearnerCallback):
         self.show_results = show_results
 
         # Logs model topology and optionally gradients and weights
-        wandb.watch(self.learn.model, log=log)
+        if not WandbCallback.watch_called:
+            wandb.watch(self.learn.model, log=log)
+            WandbCallback.watch_called = True
 
         # Add fast.ai callback for auto-saving best model
         if save_model:
