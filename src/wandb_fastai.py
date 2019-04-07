@@ -64,8 +64,10 @@ class WandbCallback(LearnerCallback):
             raise ValueError(
                 'You must call wandb.init() before WandbCallback()')
         super().__init__(learn)
-        self.log = log
         self.show_results = show_results
+
+        # Logs model topology and optionally gradients and weights
+        wandb.watch(self.learn.model, log=log)
 
         # Add fast.ai callback for auto-saving best model
         if save_model:
@@ -77,12 +79,6 @@ class WandbCallback(LearnerCallback):
 
             self.learn.callback_fns.append(
                 partial(SaveModelCallback, monitor=monitor, mode=mode))
-
-    def on_train_begin(self, **kwargs):
-        "Logs model topology and optionally gradients and weights"
-
-        super().on_train_begin(**kwargs)
-        wandb.watch(self.learn.model, log=self.log)
 
     def on_epoch_end(self, epoch, smooth_loss, last_metrics, **kwargs):
         "Logs training loss, validation loss and custom metrics"
