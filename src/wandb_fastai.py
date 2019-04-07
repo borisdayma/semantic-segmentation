@@ -6,25 +6,25 @@ Requested logged data can be configured through the callback constructor.
 Examples:
     WandBCalback can be used when initializing the Learner::
 
-        from wandb_fastai import WandBCallback
+        from wandb_fastai import WandbCallback
         [...]
-        learn = Learner(data, ..., callback_fns=WandBCallback)
+        learn = Learner(data, ..., callback_fns=WandbCallback)
         learn.fit(epochs)
     
     Custom parameters can be given using functools.partial::
 
-        from wandb_fastai import WandBCallback
+        from wandb_fastai import WandbCallback
         from functools import partialmethod
         [...]
         learn = Learner(data,
-                    callback_fns=partial(WandBCallback, ...),
+                    callback_fns=partial(WandbCallback, ...),
                     ...)  # add "path=wandb.run.dir" if saving model
         learn.fit(epochs)
 
-    Finally, it is possible to use WandBCallback only when starting
+    Finally, it is possible to use WandbCallback only when starting
     training. In this case it must be instantiated::
 
-        learn.fit(..., callbacks=WandBCallback())
+        learn.fit(..., callbacks=WandbCallback())
 
     or, with custom parameters::
 
@@ -38,7 +38,7 @@ from pathlib import Path
 from functools import partial
 
 
-class WandBCallback(LearnerCallback):
+class WandbCallback(LearnerCallback):
     def __init__(self,
                  learn,
                  log="all",

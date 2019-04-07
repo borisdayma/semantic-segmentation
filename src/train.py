@@ -2,7 +2,7 @@
 from pathlib import Path
 from fastai.vision import *
 import wandb
-from wandb_fastai import WandBCallback
+from wandb_fastai import WandbCallback
 from functools import partialmethod
 
 # Initialize W&B project
@@ -64,7 +64,7 @@ learn = unet_learner(
     metrics=acc,
     wd=config.weight_decay,
     bn_wd=config.bn_weight_decay,
-    callback_fns=partial(WandBCallback, save_model=save_model, monitor='acc'),
+    callback_fns=partial(WandbCallback, save_model=save_model, monitor='acc'),
     path=wandb.run.dir)  # Required when save_model=True
 
 # Train
