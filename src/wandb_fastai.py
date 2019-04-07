@@ -1,24 +1,34 @@
-'''
-WandB fast.ai Callback
+'''WandB Callback for fast.ai
 
-Basic use:
+This module hooks fast.ai Learners to Weights & Biases through a callback.
+Requested logged data can be configured through the callback constructor.
 
--> With default values
+Examples:
+    WandBCalback can be used when initializing the Learner::
 
-    from wandb_fastai import WandBCallback
-    [...]
-    learn = Learner(data, ..., callback_fns=WandBCallback)
-    learn.fit(epochs)
+        from wandb_fastai import WandBCallback
+        [...]
+        learn = Learner(data, ..., callback_fns=WandBCallback)
+        learn.fit(epochs)
+    
+    Custom parameters can be given using functools.partial::
 
--> With custom values
-
-    from wandb_fastai import WandBCallback
-    from functools import partialmethod
-    [...]
-    learn = Learner(data,
+        from wandb_fastai import WandBCallback
+        from functools import partialmethod
+        [...]
+        learn = Learner(data,
                     callback_fns=partial(WandBCallback, ...),
                     ...)  # add "path=wandb.run.dir" if saving model
-    learn.fit(epochs)
+        learn.fit(epochs)
+
+    Finally, it is possible to use WandBCallback only when starting
+    training. In this case it must be instantiated::
+
+        learn.fit(..., callbacks=WandBCallback())
+
+    or, with custom parameters::
+
+        learn.fit(..., callbacks=WandBCallback(learn, ...))
 '''
 import wandb
 from fastai.basic_train import LearnerCallback
