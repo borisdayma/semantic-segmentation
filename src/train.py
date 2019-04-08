@@ -11,10 +11,10 @@ wandb.init(project="semantic-segmentation")
 # Define hyper-parameters
 config = wandb.config           # for shortening
 config.framework = "fast.ai"    # AI framework used (for when we create other versions)
-config.img_size = (180, 320)    # dimensions of resized image - can be 1 dim or tuple
-config.batch_size = 16          # Batch size during training
-config.epochs = 40              # Number of epochs for training
-encoder = models.resnet34       # encoder of unet (contracting path)
+config.img_size = (360, 640)    # dimensions of resized image - can be 1 dim or tuple
+config.batch_size = 4           # Batch size during training
+config.epochs = 20              # Number of epochs for training
+encoder = models.resnet18       # encoder of unet (contracting path)
 config.encoder = encoder.__name__
 config.pretrained = True        # whether we use a frozen pre-trained encoder
 config.weight_decay = 1e-4      # weight decay applied on layers
