@@ -103,3 +103,6 @@ class WandbCallback(LearnerCallback):
         }
 
         wandb.log(logs)
+
+        if self.show_results:
+            plt.close()  # we can now close our figure
