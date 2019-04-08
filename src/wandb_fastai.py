@@ -40,7 +40,7 @@ from functools import partial
 
 class WandbCallback(LearnerCallback):
 
-    watch_called = False  # record if wandb.watch has been called
+    cb_called = False  # record if callbcack has been called previously
 
     def __init__(self,
                  learn,
@@ -69,21 +69,23 @@ class WandbCallback(LearnerCallback):
         super().__init__(learn)
         self.show_results = show_results
 
-        # Logs model topology and optionally gradients and weights
-        if not WandbCallback.watch_called:
+        if not WandbCallback.cb_called:
+            # Ensure we don't call "watch" and add "SaveModelCallback" multiple times
+            WandbCallback.cb_called = True
+
+            # Logs model topology and optionally gradients and weights
             wandb.watch(self.learn.model, log=log)
-            WandbCallback.watch_called = True
 
-        # Add fast.ai callback for auto-saving best model
-        if save_model:
-            if Path(self.learn.path).resolve() != Path(
-                    wandb.run.dir).resolve():
-                raise ValueError(
-                    'You must initialize learner with "path=wandb.run.dir" to sync model on W&B'
-                )
+            # Add fast.ai callback for auto-saving best model
+            if save_model:
+                if Path(self.learn.path).resolve() != Path(
+                        wandb.run.dir).resolve():
+                    raise ValueError(
+                        'You must initialize learner with "path=wandb.run.dir" to sync model on W&B'
+                    )
 
-            self.learn.callback_fns.append(
-                partial(SaveModelCallback, monitor=monitor, mode=mode))
+                self.learn.callback_fns.append(
+                    partial(SaveModelCallback, monitor=monitor, mode=mode))
 
     def on_epoch_end(self, epoch, smooth_loss, last_metrics, **kwargs):
         "Logs training loss, validation loss and custom metrics"
