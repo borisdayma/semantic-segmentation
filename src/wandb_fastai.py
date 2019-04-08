@@ -44,7 +44,7 @@ class WandbCallback(LearnerCallback):
 
     def __init__(self,
                  learn,
-                 log="all",
+                 log=None,
                  show_results=True,
                  save_model=False,
                  monitor='val_loss',
@@ -56,11 +56,11 @@ class WandbCallback(LearnerCallback):
 
         Args:
             learn (fastai.basic_train.Learner): the fast.ai learner to hook.
-            log (str): One of "gradients", "parameters", "all", or None
-            show_results (bool): whether we want to display sample predictions
-            save_model (bool): save model at the end of each epoch
-            monitor (str): metric to monitor for saving best model
-            mode (str): "auto", "min" or "max" to compare "monitor" values and define best model
+            log (str): One of "gradients", "parameters", "all", or None. Losses & metrics are always logged.
+            show_results (bool): whether we want to display sample predictions.
+            save_model (bool): save model at the end of each epoch.
+            monitor (str): metric to monitor for saving best model.
+            mode (str): "auto", "min" or "max" to compare "monitor" values and define best model.
         """
 
         if wandb.run is None:
