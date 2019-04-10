@@ -4,7 +4,7 @@
 
 ## Introduction
 
-Self-driving cars require a deep understanding of their surroundings. Cameras need to recognize road, pedestrians, cars, sidewalks, etc at a pixel level accuracy. In this repository, we aim at defining a neural network and optimizing it to perform semantic segmentation.
+Self-driving cars require a deep understanding of their surroundings. Camera images are used to recognize road, pedestrians, cars, sidewalks, etc at a pixel level accuracy. In this repository, we aim at defining a neural network and optimizing it to perform semantic segmentation.
 
 The AI framework used is fast.ai and the dataset is from [Berkeley Deep Drive](https://bdd-data.berkeley.edu/). It is highly diverse and present labeled segmentation data from a diverse range of cars, in multiple cities and weather conditions.
 
@@ -29,7 +29,3 @@ See my results and conclusions:
 - Results & Conclusions (TODO add link to blog post)
 - [W&B report](https://beta.wandb.ai/borisd13/semantic-segmentation/reports?view=borisd13%2FSemantic%20Segmentation%20Report)
 - [W&B runs](https://beta.wandb.ai/borisd13/semantic-segmentation/?workspace=user-borisd13)
-
-And here is a little sample of the results.
-
-TODO add sample result
