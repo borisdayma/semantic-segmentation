@@ -44,7 +44,7 @@ segmentation_classes = [
 void_code = 19  # used to define accuracy and disconsider unlabeled pixels
 
 # Load data into train & validation sets
-src = (SegmentationItemList.from_folder(path_img)
+src = (SegmentationItemList.from_folder(path_img).use_partial_data(0.01)
        .split_by_folder(train='train', valid='val')
        .label_from_func(get_y_fn, classes=segmentation_classes))
 
