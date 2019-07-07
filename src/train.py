@@ -67,7 +67,7 @@ learn = unet_learner(
     metrics=acc,
     wd=config.weight_decay,
     bn_wd=config.bn_weight_decay,
-    callback_fns=partial(WandbCallback, save_model=save_model, monitor='acc'))
+    callback_fns=partial(WandbCallback, save_model=save_model, monitor='acc', data_type='images'))
 
 # Train
 if config.one_cycle:
