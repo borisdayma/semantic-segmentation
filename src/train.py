@@ -44,7 +44,7 @@ segmentation_classes = [
 void_code = 19  # used to define accuracy and disconsider unlabeled pixels
 
 # Load data into train & validation sets
-src = (SegmentationItemList.from_folder(path_img)
+src = (SegmentationItemList.from_folder(path_img).use_partial_data(0.01)
        .split_by_folder(train='train', valid='val')
        .label_from_func(get_y_fn, classes=segmentation_classes))
 
@@ -67,7 +67,7 @@ learn = unet_learner(
     metrics=acc,
     wd=config.weight_decay,
     bn_wd=config.bn_weight_decay,
-    callback_fns=partial(WandbCallback, save_model=save_model, monitor='acc', data_type='images'))
+    callback_fns=partial(WandbCallback, save_model=save_model, monitor='acc', input_type='images'))
 
 # Train
 if config.one_cycle:
