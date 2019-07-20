@@ -26,6 +26,6 @@ The following files are present in `src` folder:
 
 See my results and conclusions:
 
-- Results & Conclusions (TODO add link to blog post)
-- [W&B report](https://beta.wandb.ai/borisd13/semantic-segmentation/reports?view=borisd13%2FSemantic%20Segmentation%20Report)
-- [W&B runs](https://beta.wandb.ai/borisd13/semantic-segmentation/?workspace=user-borisd13)
+- [Results & Conclusions](https://www.wandb.com/articles/semantic-segmentation-for-self-driving-cars)
+- [W&B report](https://app.wandb.ai/borisd13/semantic-segmentation/reports?view=borisd13%2FSemantic%20Segmentation%20Report)
+- [W&B runs](https://app.wandb.ai/borisd13/semantic-segmentation/?workspace=user-borisd13)
