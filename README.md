@@ -8,7 +8,7 @@ Self-driving cars require a deep understanding of their surroundings. Camera ima
 
 The AI framework used is fast.ai and the dataset is from [Berkeley Deep Drive](https://bdd-data.berkeley.edu/). It is highly diverse and present labeled segmentation data from a diverse range of cars, in multiple cities and weather conditions.
 
-Every single experiment is automatically logged onto [Weighs & Biases](https://www.wandb.com/) for easier analysis/interpretation of results and how to optimize the architecture.
+Every single experiment is automatically logged onto [Weights & Biases](https://www.wandb.com/) for easier analysis/interpretation of results and how to optimize the architecture.
 
 ## Usage
 
@@ -20,7 +20,7 @@ The following files are present in `src` folder:
 
 - `pre_process.py` must be run once on the dataset to make it more user friendly (segmentation masks with consecutive values) ;
 - `prototype.ipynb` is a Jupyter Notebook used to prototype our solution ;
-- `train.py` is a script to run several experiments and log them on [Weighs & Biases](https://www.wandb.com/).
+- `train.py` is a script to run several experiments and log them on [Weights & Biases](https://www.wandb.com/).
 
 ## Results
 
